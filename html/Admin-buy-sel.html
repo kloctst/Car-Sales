@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - Daftar Mobil</title>
+  <link rel="stylesheet" href="adm.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Admin Panel: Daftar Mobil</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Nama Mobil</th>
+          <th>Harga</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+          include 'config.php';
+          $sql = "SELECT * FROM cars";
+          $result = mysqli_query($conn, $sql);
+          $no = 1;
+          while ($row = mysqli_fetch_assoc($result)) {
+            echo "<tr>
+                    <td>" . $no++ . "</td>
+                    <td>" . $row['name'] . "</td>
+                    <td>Rp. " . number_format($row['price'], 0, ',', '.') . "</td>
+                    <td>
+                      <a href='edit_car.php?id=" . $row['id'] . "'>Edit</a> | 
+                      <a href='delete_car.php?id=" . $row['id'] . "'>Hapus</a>
+                    </td>
+                  </tr>";
+          }
+        ?>
+      </tbody>
+    </table>
+    <a href="add_car.php">Tambah Mobil Baru</a>
+  </div>
+</body>
+</html>
